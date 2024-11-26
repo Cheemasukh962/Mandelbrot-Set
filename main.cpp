@@ -15,7 +15,7 @@ int main() {
 
     // Load font and create text
     sf::Font font;
-    if (!font.loadFromFile("arial.ttf")) {
+    if (!font.loadFromFile("Arial.ttf")) {
         throw std::runtime_error("Could not load font!");
     }
     sf::Text text;
