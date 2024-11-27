@@ -52,19 +52,38 @@ void ComplexPlane::iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b) c
 // Render the Mandelbrot set
 void ComplexPlane::updateRender() {
     if (m_state == State::CALCULATING) {
-        for (int i = 0; i < m_pixelSize.y; ++i) {
+        int threadCount = 2;
+        // v this is lambda v
+        auto calcRow = [this](int row)
+        {
             for (int j = 0; j < m_pixelSize.x; ++j) {
-                size_t index = j + i * m_pixelSize.x;
-                m_vArray[index].position = Vector2f(static_cast<float>(j), static_cast<float>(i));
+                size_t index = j + row * m_pixelSize.x;
+                m_vArray[index].position = Vector2f(static_cast<float>(j), static_cast<float>(row));
 
-                Vector2f coord = mapPixelToCoords({ j, i });
+                Vector2f coord = mapPixelToCoords({ j, row });
                 size_t iterations = countIterations(coord);
 
                 Uint8 r, g, b;
                 iterationsToRGB(iterations, r, g, b);
                 m_vArray[index].color = Color(r, g, b);
             }
+        };
+
+        vector<thread> threads;
+        for (int i = 0; i < m_pixelSize.y; i++)
+        {
+            if (threads.size() < threadCount)
+            {
+                threads.push_back(thread(calcRow, i));
+            }
+            else
+            {
+                threads.front().join();
+                threads.erase(threads.begin());
+                threads.push_back(thread(calcRow, i));
+            }
         }
+
         m_state = State::DISPLAYING;
     }
 }

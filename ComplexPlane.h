@@ -4,6 +4,8 @@
 #include <SFML/Graphics.hpp>
 #include <complex>
 #include <sstream>
+#include <thread>
+#include <vector>
 
 using namespace sf;
 using namespace std;
