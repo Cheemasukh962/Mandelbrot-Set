@@ -1,3 +1,4 @@
+#include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include "ComplexPlane.h"
 #include <stdexcept>
@@ -23,6 +24,14 @@ int main() {
     text.setCharacterSize(16);
     text.setFillColor(sf::Color::White);
 
+    // Load and configure music
+    sf::Music music;
+    if (!music.openFromFile("click_sound.ogg")) {
+        throw std::runtime_error("Could not load music file!");
+    }
+    music.setVolume(50); // Set volume (0-100)
+    music.setLoop(false); // Ensure it plays once per click
+
     // Main loop
     while (window.isOpen()) {
         // Handle input
@@ -35,10 +44,12 @@ int main() {
                 if (event.mouseButton.button == sf::Mouse::Left) {
                     complexPlane.setCenter({ event.mouseButton.x, event.mouseButton.y });
                     complexPlane.zoomIn();
+                    music.play(); // Play music on left click
                 }
                 else if (event.mouseButton.button == sf::Mouse::Right) {
                     complexPlane.setCenter({ event.mouseButton.x, event.mouseButton.y });
                     complexPlane.zoomOut();
+                    music.play(); // Play music on right click
                 }
             }
             if (event.type == sf::Event::MouseMoved) {
