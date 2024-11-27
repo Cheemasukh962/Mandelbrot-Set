@@ -39,13 +39,13 @@ void ComplexPlane::iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b) c
         r = g = b = 0;  // Black for points inside the Mandelbrot set
     }
     else if (count > MAX_ITER / 2) {
-        r = 255; g = 0; b = 0;  // Red for high iteration counts
+        r = 234; g = 50; b = 60;  // Red for high iteration counts
     }
     else if (count > MAX_ITER / 4) {
-        r = 0; g = 255; b = 0;  // Green for medium iteration counts
+        r = 12; g = 2; b = 147;  // Purple for medium iteration counts
     }
     else {
-        r = 0; g = 0; b = 255;  // Blue for low iteration counts
+        r = 230; g = 230; b = 235;  // White for low iteration counts
     }
 }
 
