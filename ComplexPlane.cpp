@@ -114,4 +114,3 @@ void ComplexPlane::loadText(Text& text) const {
 void ComplexPlane::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     target.draw(m_vArray, states);
 }
-
