@@ -52,7 +52,10 @@ void ComplexPlane::iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b) c
 // Render the Mandelbrot set
 void ComplexPlane::updateRender() {
     if (m_state == State::CALCULATING) {
-        int threadCount = 2;
+        unsigned int conThreads = thread::hardware_concurrency();
+        std::cout << "# concurrent threads supported: " << conThreads << endl;
+
+        int threadCount = conThreads;
         // v this is lambda v
         auto calcRow = [this](int row)
         {
