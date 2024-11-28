@@ -83,7 +83,10 @@ void ComplexPlane::updateRender() {
                 threads.push_back(thread(calcRow, i));
             }
         }
-
+        for (auto& t : threads)
+        {
+            t.join();
+        }
         m_state = State::DISPLAYING;
     }
 }
