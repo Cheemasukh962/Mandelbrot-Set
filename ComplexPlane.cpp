@@ -53,7 +53,7 @@ void ComplexPlane::iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b) c
 void ComplexPlane::updateRender() {
     if (m_state == State::CALCULATING) {
         unsigned int conThreads = thread::hardware_concurrency();
-        std::cout << "# concurrent threads supported: " << conThreads << endl;
+        //std::cout << "# concurrent threads supported: " << conThreads << endl; // usually 3 on Ubuntu VM
 
         int threadCount = conThreads;
         // v this is lambda v
